@@ -1,2 +1,2 @@
-pip3 install mariadb
-pip3 install paho-mqtt
+mariadb
+paho-mqtt

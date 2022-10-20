@@ -1,5 +1,6 @@
 import paho.mqtt.client as mqtt
-import mysql.connector
+#import mysql.connector
+import mariadb
 from time import time
 
 MQTT_HOST = 'broker.hivemq.com'
@@ -16,7 +17,13 @@ mysql_passwd = 'dhynydor'
 mysql_db = 'hz024702db'
 
 # Open database connection
-db_conn = mysql.connector.connect(
+#db_conn = mysql.connector.connect(
+#    host="46.229.230.163",
+#    user="hz024700",
+#    password="dhynydor",
+#    database="hz024702db"
+#)
+db_conn =  mariadb.connect(
     host="46.229.230.163",
     user="hz024700",
     password="dhynydor",

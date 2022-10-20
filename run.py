@@ -19,15 +19,18 @@ mysql_db = 'hz024702db'
 
 def on_connect(mqtt_client, user_data, flags, conn_result):
     mqtt_client.subscribe(TOPIC)
+    print('Prihlasene ku topicu')
 
 
 def on_message(mqtt_client, user_data, message):
     payload = message.payload.decode('utf-8')
+    print(payload)
 
     db_conn = user_data['db_conn']
     sql = 'INSERT INTO tlacitka_data (topic, payload, created_at) VALUES (?, ?, ?)'
     cursor = db_conn.cursor()
     cursor.execute(sql, (message.topic, payload, int(time())))
+    print('Successfully Added record to mysql')
     db_conn.commit()
     cursor.close()
 

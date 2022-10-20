@@ -15,7 +15,13 @@ mysql_username = 'hz024700'
 mysql_passwd = 'dhynydor'
 mysql_db = 'hz024702db'
 
-
+# Open database connection
+db_conn = mysql.connector.connect(
+    host="46.229.230.163",
+    user="hz024700",
+    password="dhynydor",
+    database="hz024702db"
+)
 
 def on_connect(mqtt_client, user_data, flags, conn_result):
     mqtt_client.subscribe(TOPIC)
@@ -37,9 +43,6 @@ def on_message(mqtt_client, user_data, message):
 
 
 def main():
-    # Open database connection
-    db_conn = mysql.connector.connect(mysql_server, mysql_username, mysql_passwd, mysql_db)
-
     #db_conn = MySQLdb.connect(mysql_server, mysql_username, mysql_passwd, mysql_db)
 
     mqtt_client = mqtt.Client(MQTT_CLIENT_ID)

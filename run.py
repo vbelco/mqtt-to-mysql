@@ -1,7 +1,6 @@
 import paho.mqtt.client as mqtt
 #import mysql.connector
 import mariadb
-from time import time
 
 MQTT_HOST = 'broker.hivemq.com'
 MQTT_PORT = 1883
@@ -34,9 +33,9 @@ def on_message(mqtt_client, user_data, message):
     print(payload)
 
     #db_conn = user_data['db_conn']
-    sql = 'INSERT INTO tlacitka_data (topic, payload, created_at) VALUES (?, ?, ?)'
+    sql = 'INSERT INTO tlacitka_data (topic, payload) VALUES (?, ?)'
     cursor = db_conn.cursor()
-    cursor.execute(sql, (message.topic, payload, int(time())))
+    cursor.execute(sql, (message.topic, payload))
     print('Successfully Added record to mysql')
     db_conn.commit()
     print(cursor.rowcount, "record inserted.")

@@ -10,12 +10,6 @@ MQTT_USER = 'broker.hivemq.com:1883'
 MQTT_PASSWORD = ''
 TOPIC = 'tlacitka/#'
 
-#mysql config
-mysql_server = '46.229.230.163'
-mysql_username = 'hz024700'
-mysql_passwd = 'dhynydor'
-mysql_db = 'hz024702db'
-
 # Open database connection
 #db_conn = mysql.connector.connect(
 #    host="46.229.230.163",

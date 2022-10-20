@@ -1,5 +1,5 @@
 import paho.mqtt.client as mqtt
-import MySQLdb
+import mysql.connector
 from time import time
 
 MQTT_HOST = 'broker.hivemq.com'
@@ -26,18 +26,21 @@ def on_message(mqtt_client, user_data, message):
     payload = message.payload.decode('utf-8')
     print(payload)
 
-    db_conn = user_data['db_conn']
+    #db_conn = user_data['db_conn']
     sql = 'INSERT INTO tlacitka_data (topic, payload, created_at) VALUES (?, ?, ?)'
     cursor = db_conn.cursor()
     cursor.execute(sql, (message.topic, payload, int(time())))
     print('Successfully Added record to mysql')
     db_conn.commit()
+    print(cursor.rowcount, "record inserted.")
     cursor.close()
 
 
 def main():
     # Open database connection
-    db_conn = MySQLdb.connect(mysql_server, mysql_username, mysql_passwd, mysql_db)
+    db_conn = mysql.connector.connect(mysql_server, mysql_username, mysql_passwd, mysql_db)
+
+    #db_conn = MySQLdb.connect(mysql_server, mysql_username, mysql_passwd, mysql_db)
 
     mqtt_client = mqtt.Client(MQTT_CLIENT_ID)
     mqtt_client.username_pw_set(MQTT_USER, MQTT_PASSWORD)
